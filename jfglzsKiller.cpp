@@ -27,19 +27,11 @@ int main(void) {
 			bRet = Process32Next(hSnapshort, &stcProcessInfo);
 		}
 		while (proList.size()) {
-			::TerminateProcess(proList.front(), 0);
-			CloseHandle(proList.front());
-			proList.pop();
-		}
-		bRet = Process32First(hSnapshort, &stcProcessInfo);
-		while (bRet) {
-			if(!(strcmp(stcProcessInfo.szExeFile, "jfglzs.exe")
-			        && strcmp(stcProcessInfo.szExeFile, "prozs.exe")
-			        && strcmp(stcProcessInfo.szExeFile, "srvany.exe")
-			        && strcmp(stcProcessInfo.szExeFile, "zmservice.exe"))) {
+			if (!(::TerminateProcess(proList.front(), 0))) {
 			    finished = false;
 			}
-			bRet = Process32Next(hSnapshort, &stcProcessInfo);
+			CloseHandle(proList.front());
+			proList.pop();
 		}
 	} while(!finished);
 	CloseHandle(hSnapshort);
