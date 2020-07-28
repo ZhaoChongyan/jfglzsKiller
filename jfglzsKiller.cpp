@@ -39,10 +39,13 @@ int main(void) {
 		}
 		while (proList.size()) {
 			/*
-			 * Stop the process in the list.
+			 * Abort the process in the list.
 			 */
 			if (!(::TerminateProcess(proList.front(), 0))) {
-			    finished = false;
+				/*
+				 * Fail to abort the malware process.
+				 */
+				finished = false;
 			}
 			CloseHandle(proList.front());
 			proList.pop();
