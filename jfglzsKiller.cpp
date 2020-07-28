@@ -1,3 +1,8 @@
+/*
+ * This program is created by Chongyan Zhao.
+ * This program is used for destroy Jifangguanlizhushou, A useless, disgusting malware software.
+ * The malware software is hard-opposing. So I created this program to solve the problem.
+ */
 #include <cstdlib>
 #include <windows.h>
 #include <TlHelp32.h>
@@ -7,6 +12,9 @@ using namespace std;
 int main(void) {
 	HANDLE hSnapshort = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 	if (hSnapshort == INVALID_HANDLE_VALUE) {
+		/*
+		 * Cannot creat a HANDLE!!!
+		 */
 		throw "CreateToolhelp32Snapshot failed!\n";
 		return -1;
 	}
@@ -18,6 +26,9 @@ int main(void) {
 		stcProcessInfo.dwSize = sizeof(stcProcessInfo);
 		BOOL bRet = Process32First(hSnapshort, &stcProcessInfo);
 		while(bRet) {
+			/*
+			 * Add the process to the list.
+			 */
 			if(!(strcmp(stcProcessInfo.szExeFile, "jfglzs.exe")
 			        && strcmp(stcProcessInfo.szExeFile, "prozs.exe")
 			        && strcmp(stcProcessInfo.szExeFile, "srvany.exe")
@@ -27,6 +38,9 @@ int main(void) {
 			bRet = Process32Next(hSnapshort, &stcProcessInfo);
 		}
 		while (proList.size()) {
+			/*
+			 * Stop the process in the list.
+			 */
 			if (!(::TerminateProcess(proList.front(), 0))) {
 			    finished = false;
 			}
