@@ -16,10 +16,10 @@ int main(void) {
 	stcProcessInfo.dwSize=sizeof(stcProcessInfo);
 	BOOL bRet=Process32First(hSnapshort,&stcProcessInfo);
 	while(bRet) {
-		if(strcmp(stcProcessInfo.szExeFile,"jfglzs.exe")
-		|| strcmp(stcProcessInfo.szExeFile,"prozs.exe")
-		|| strcmp(stcProcessInfo.szExeFile,"srvany.exe")
-		|| strcmp(stcProcessInfo.szExeFile,"zmservice.exe")) {
+		if(!(strcmp(stcProcessInfo.szExeFile,"jfglzs.exe")
+		&& strcmp(stcProcessInfo.szExeFile,"prozs.exe")
+		&& strcmp(stcProcessInfo.szExeFile,"srvany.exe")
+		&& strcmp(stcProcessInfo.szExeFile,"zmservice.exe"))) {
 			proList.push(::OpenProcess(PROCESS_TERMINATE,FALSE,stcProcessInfo.th32ProcessID));
 		}
 		bRet=Process32Next(hSnapshort,&stcProcessInfo);
@@ -31,10 +31,10 @@ int main(void) {
 	}
 	bRet=Process32First(hSnapshort,&stcProcessInfo);
 	while(bRet) {
-		if(strcmp(stcProcessInfo.szExeFile,"jfglzs.exe")
-		|| strcmp(stcProcessInfo.szExeFile,"prozs.exe")
-		|| strcmp(stcProcessInfo.szExeFile,"srvany.exe")
-		|| strcmp(stcProcessInfo.szExeFile,"zmservice.exe")) {
+		if(!(strcmp(stcProcessInfo.szExeFile,"jfglzs.exe")
+		&& strcmp(stcProcessInfo.szExeFile,"prozs.exe")
+		&& strcmp(stcProcessInfo.szExeFile,"srvany.exe")
+		&& strcmp(stcProcessInfo.szExeFile,"zmservice.exe"))) {
 			goto begin;
 		}
 		bRet=Process32Next(hSnapshort,&stcProcessInfo);
