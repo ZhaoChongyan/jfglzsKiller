@@ -5,6 +5,7 @@
  */
 #include <cstdlib>
 #include <windows.h>
+#include <winreg.h>
 #include <TlHelp32.h>
 #include <queue>
 using namespace std;
@@ -19,7 +20,7 @@ int main(void) {
 		return -1;
 	}
 	queue<HANDLE> proList;
-	bool finished = false; 
+	bool finished = false;
 	do {
 		finished = true;
 		PROCESSENTRY32 stcProcessInfo;
@@ -52,5 +53,20 @@ int main(void) {
 		}
 	} while(!finished);
 	CloseHandle(hSnapshort);
+	/*
+	 * Edit registry.
+	 */
+	if(RegDeleteKey(HKEY_CURRENT_USER, "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\DisableTaskMgr") != ERROR_SUCCESS) {
+		throw "Delete HKEY failed!\n";
+		return -1;
+	}
+	if(RegDeleteKey(HKEY_CURRENT_USER, "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\DisableRegistryTools") != ERROR_SUCCESS) {
+		throw "Delete HKEY failed!\n";
+		return -1;
+	}
+	if(RegDeleteKey(HKEY_CURRENT_USER, "Software\\Policies\\Microsoft\\Windows\\System\\DisableCMD") != ERROR_SUCCESS) {
+		throw "Delete HKEY failed!\n";
+		return -1;
+	}
 	return 0;
 }
