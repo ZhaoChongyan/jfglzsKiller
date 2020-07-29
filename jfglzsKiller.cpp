@@ -1,5 +1,5 @@
 /*
- * This program is created by Chongyan Zhao.
+ * This program is created by ZhaoChongyan.
  * This program is used for destroy Jifangguanlizhushou, A useless, disgusting malware software.
  * The malware software is hard-opposing. So I created this program to solve the problem.
  */
